@@ -1,0 +1,45 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="MyDesktop.LaunchpadWindow"
+        Width="650" Height="520"
+        Background="#1A1A1A80"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False"
+        SystemDecorations="None">
+
+    <Grid Margin="25">
+
+        <WrapPanel HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   ItemWidth="90"
+                   ItemHeight="90">
+
+            <Button Width="90" Height="90"
+                    Background="#262626"
+                    CornerRadius="20"
+                    BorderThickness="0"
+                    Margin="15">
+                <Image Source="Assets/icons/apps.png"/>
+            </Button>
+
+            <Button Width="90" Height="90"
+                    Background="#262626"
+                    CornerRadius="20"
+                    BorderThickness="0"
+                    Margin="15">
+                <Image Source="Assets/icons/files.png"/>
+            </Button>
+
+            <Button Width="90" Height="90"
+                    Background="#262626"
+                    CornerRadius="20"
+                    BorderThickness="0"
+                    Margin="15">
+                <Image Source="Assets/icons/settings.png"/>
+            </Button>
+
+        </WrapPanel>
+
+    </Grid>
+
+</Window>

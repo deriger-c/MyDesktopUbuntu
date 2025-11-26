@@ -1,0 +1,17 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="MyDesktop.SettingsWindow"
+        Width="450"
+        Height="300"
+        Title="Settings"
+        Background="#181820">
+
+    <Grid Margin="16">
+        <TextBlock Text="Settings window"
+                   FontSize="24"
+                   Foreground="White"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" />
+    </Grid>
+
+</Window>

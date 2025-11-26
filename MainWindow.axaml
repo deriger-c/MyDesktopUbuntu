@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="MyDesktop.MainWindow"
+    Title="MyDesktop"
+    WindowState="FullScreen"
+    CanResize="False"
+    SystemDecorations="None"
+    Background="#101018">
+
+    <Grid>
+
+        <!-- Фон рабочего стола -->
+        <Image Source="Assets/wallpaper.jpg" Stretch="UniformToFill" />
+
+        <!-- Панель задач -->
+        <Border Background="#222222AA"
+            Height="60"
+            VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Spacing="40"
+                Margin="0,0,0,10">
+
+                <!-- Apps -->
+                <Button Width="64" Height="64"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="Apps_Click">
+                    <Image Source="Assets/icons/apps.png" Stretch="Uniform" />
+                </Button>
+
+                <!-- Files -->
+                <Button Width="64" Height="64"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="Settings_Click">
+                    <Image Source="Assets/icons/files.png" Stretch="Uniform" />
+                </Button>
+
+                <!-- Settings -->
+                <Button Width="64" Height="64"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="Files_Click">
+                    <Image Source="Assets/icons/settings.png" Stretch="Uniform" />
+                </Button>
+
+            </StackPanel>
+        </Border>
+
+    </Grid>
+
+</Window>
