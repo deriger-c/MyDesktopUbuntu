@@ -1,0 +1,71 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="MyDesktop.TerminalWindow"
+        Title="Terminal"
+        Width="700" Height="450"
+        SystemDecorations="None"
+        Background="Transparent"
+        TransparencyLevelHint="AcrylicBlur"
+        WindowStartupLocation="CenterScreen"
+        CanResize="True">
+
+    <Window.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#00FF00"/>
+            <Setter Property="FontFamily" Value="Monospace"/>
+            <Setter Property="CaretBrush" Value="#00FF00"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+    </Window.Styles>
+
+    <Panel>
+        <!-- Фон с размытием -->
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="#0c0c0c"
+                    TintOpacity="0.95"
+                    MaterialOpacity="0.8"/>
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+
+        <Grid RowDefinitions="30, *, Auto">
+            
+            <!-- Заголовок окна -->
+            <Grid Grid.Row="0" Background="#333333" ColumnDefinitions="*, Auto">
+                <TextBlock Text="Ubuntu Terminal (Guest)" Foreground="#AAAAAA" 
+                           VerticalAlignment="Center" Margin="10,0"/>
+                <Button Grid.Column="1" Content="X" Click="Close_Click"
+                        Background="Transparent" Foreground="Red" BorderThickness="0"
+                        Margin="0,0,5,0" FontWeight="Bold"/>
+            </Grid>
+
+            <!-- История команд (Вывод) -->
+            <ScrollViewer Grid.Row="1" x:Name="OutputScroll">
+                <TextBlock x:Name="OutputBlock" 
+                           Foreground="#00FF00" 
+                           FontFamily="Monospace" 
+                           FontSize="14" 
+                           Margin="10" 
+                           TextWrapping="Wrap"/>
+            </ScrollViewer>
+
+            <!-- Строка ввода -->
+            <Grid Grid.Row="2" ColumnDefinitions="Auto, *">
+                <TextBlock x:Name="PromptBlock" Text="$ " 
+                           Foreground="#00FF00" 
+                           FontFamily="Monospace" 
+                           FontSize="14" 
+                           VerticalAlignment="Center" 
+                           Margin="10,0,0,0"/>
+                
+                <TextBox Grid.Column="1" x:Name="InputBox" 
+                         KeyDown="InputBox_KeyDown"
+                         AcceptsReturn="False"/>
+            </Grid>
+        </Grid>
+    </Panel>
+</Window>

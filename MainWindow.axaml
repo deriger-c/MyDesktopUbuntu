@@ -1,54 +1,105 @@
 <Window xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Class="MyDesktop.MainWindow"
-    Title="MyDesktop"
-    WindowState="FullScreen"
-    CanResize="False"
-    SystemDecorations="None"
-    Background="#101018">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="MyDesktop.MainWindow"
+        Title="MyDesktop"
+        Height="60"
+        SystemDecorations="None"
+        Background="Transparent"
+        Topmost="True"
+        CanResize="False"
+        PointerPressed="OnPointerPressed"
+        PointerMoved="OnPointerMoved"
+        PointerReleased="OnPointerReleased">
 
-    <Grid>
+	<Window.Styles>
+		<Style Selector="Button.TaskbarIcon">
+			<Setter Property="Width" Value="48"/>
+			<Setter Property="Height" Value="48"/>
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Margin" Value="5,0"/>
+			<Setter Property="CornerRadius" Value="10"/>
+		</Style>
+		<Style Selector="Button.TaskbarIcon:pointerover /template/ ContentPresenter">
+			<Setter Property="Background" Value="#33FFFFFF"/>
+			<Setter Property="RenderTransform" Value="scale(1.1)"/>
+		</Style>
+		<Style Selector="Button.Power:pointerover /template/ ContentPresenter">
+			<Setter Property="Background" Value="#CCFF0000"/> 
+			<Setter Property="RenderTransform" Value="scale(1.1)"/>
+		</Style>
+	</Window.Styles>
 
-        <!-- Фон рабочего стола -->
-        <Image Source="Assets/wallpaper.jpg" Stretch="UniformToFill" />
+	<Panel>
+		<ExperimentalAcrylicBorder IsHitTestVisible="False">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="#000000"
+                    TintOpacity="0.8"
+                    MaterialOpacity="0.65"/>
+			</ExperimentalAcrylicBorder.Material>
+		</ExperimentalAcrylicBorder>
 
-        <!-- Панель задач -->
-        <Border Background="#222222AA"
-            Height="60"
-            VerticalAlignment="Bottom">
-            <StackPanel Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Spacing="40"
-                Margin="0,0,0,10">
+		<Grid ColumnDefinitions="Auto, *, Auto" Margin="15, 0">
 
-                <!-- Apps -->
-                <Button Width="64" Height="64"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Click="Apps_Click">
-                    <Image Source="Assets/icons/apps.png" Stretch="Uniform" />
-                </Button>
+			<!-- ЛЕВО: Меню пуск + ТЕРМИНАЛ -->
+			<StackPanel Grid.Column="0" Orientation="Horizontal">
+				<!-- Меню -->
+				<Button Classes="TaskbarIcon" Click="Apps_Click">
+					<Viewbox Width="26" Height="26">
+						<Path Fill="White" Data="M4,4H10V10H4V4M14,4H20V10H14V4M4,14H10V20H4V14M14,14H20V20H14V14Z"/>
+					</Viewbox>
+				</Button>
+				
+				<!-- Наш новый Терминал -->
+				<Button Classes="TaskbarIcon" Click="Terminal_Click">
+					<ToolTip.Tip>Terminal</ToolTip.Tip>
+					<Viewbox Width="24" Height="24">
+						<Path Fill="#4CC2FF" Data="M20,19V20H4V19L20,19M20,17V18H4V17L20,17M4,5V7L10,10L4,13V15L14,10L4,5Z"/>
+					</Viewbox>
+				</Button>
+			</StackPanel>
 
-                <!-- Files -->
-                <Button Width="64" Height="64"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Click="Settings_Click">
-                    <Image Source="Assets/icons/files.png" Stretch="Uniform" />
-                </Button>
+			<!-- ЦЕНТР: Приложения -->
+			<StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+				<Button Classes="TaskbarIcon" Click="Chrome_Click">
+					<ToolTip.Tip>Google Chrome</ToolTip.Tip>
+					<Viewbox Width="24" Height="24">
+						<Path Fill="White" Data="M12,3A9,9 0 1,1 12,21A9,9 0 0,1 12,3Z"/>
+					</Viewbox>
+				</Button>
+				<Button Classes="TaskbarIcon" Click="Files_Click">
+					<ToolTip.Tip>Files</ToolTip.Tip>
+					<Viewbox Width="24" Height="24">
+						<Path Fill="White" Data="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/>
+					</Viewbox>
+				</Button>
+				<Button Classes="TaskbarIcon" Click="Settings_Click">
+					<ToolTip.Tip>Settings</ToolTip.Tip>
+					<Viewbox Width="24" Height="24">
+						<Path Fill="White" Data="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5Z"/>
+					</Viewbox>
+				</Button>
+			</StackPanel>
 
-                <!-- Settings -->
-                <Button Width="64" Height="64"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Click="Files_Click">
-                    <Image Source="Assets/icons/settings.png" Stretch="Uniform" />
-                </Button>
-
-            </StackPanel>
-        </Border>
-
-    </Grid>
-
+			<!-- ПРАВО: Часы и Выход -->
+			<StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Spacing="10">
+				<Border Background="#33FFFFFF" CornerRadius="8" Padding="15,5">
+					<StackPanel VerticalAlignment="Center">
+						<TextBlock x:Name="ClockBlock" Text="00:00" Foreground="White" FontWeight="SemiBold" FontSize="15" HorizontalAlignment="Center"/>
+						<TextBlock x:Name="DateBlock" Text="Nov 27" Foreground="#CCFFFFFF" FontSize="11" HorizontalAlignment="Center"/>
+					</StackPanel>
+				</Border>
+				<Button Classes="TaskbarIcon Power" Click="Exit_Click">
+					<Viewbox Width="24" Height="24">
+						<Path Fill="White" Data="M16.56,5.44L15.11,6.89C16.84,7.94 18,9.83 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12C6,9.83 7.16,7.94 8.89,6.89L7.44,5.44C5.36,6.88 4,9.28 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12C20,9.28 18.64,6.88 16.56,5.44M13,3H11V13H13" />
+					</Viewbox>
+				</Button>
+			</StackPanel>
+		</Grid>
+	</Panel>
 </Window>

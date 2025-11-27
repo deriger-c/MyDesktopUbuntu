@@ -1,17 +1,103 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="MyDesktop.AppsWindow"
-        Width="500"
-        Height="350"
-        Title="Apps"
-        Background="#181820">
+        Title="Launcher"
+        Width="600" Height="400"
+        SystemDecorations="None"
+        Background="Transparent"
+        TransparencyLevelHint="AcrylicBlur"
+        WindowStartupLocation="Manual"
+        Topmost="True"
+        ShowInTaskbar="False"
+        CanResize="False">
 
-    <Grid Margin="16">
-        <TextBlock Text="Apps window"
-                   FontSize="24"
-                   Foreground="White"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center" />
-    </Grid>
+    <Window.Styles>
+        <!-- Стиль для кнопки приложения -->
+        <Style Selector="Button.AppItem">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="110"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="CornerRadius" Value="15"/>
+        </Style>
+        
+        <!-- Эффект при наведении -->
+        <Style Selector="Button.AppItem:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#22FFFFFF"/>
+            <Setter Property="RenderTransform" Value="scale(1.05)"/>
+        </Style>
 
+        <!-- Стиль текста под иконкой -->
+        <Style Selector="TextBlock.AppText">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+        </Style>
+    </Window.Styles>
+
+    <Panel>
+        <!-- Полупрозрачный фон -->
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="#1e1e1e"
+                    TintOpacity="0.85"
+                    MaterialOpacity="0.60"/>
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+
+        <!-- Сетка приложений -->
+        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+            
+            <!-- 1. VS Code -->
+            <Button Classes="AppItem" Click="VSCode_Click">
+                <StackPanel>
+                    <Viewbox Width="48" Height="48">
+                        <Path Fill="#007ACC" Data="M23.15,2.58L18.3,0L2,11.2L12.79,16.59L23.15,2.58M12.79,7.41L2,12.8L18.3,24L23.15,21.42L12.79,7.41Z"/>
+                    </Viewbox>
+                    <TextBlock Classes="AppText" Text="VS Code"/>
+                </StackPanel>
+            </Button>
+
+            <!-- 2. Terminal -->
+            <Button Classes="AppItem" Click="Terminal_Click">
+                <StackPanel>
+                    <Viewbox Width="48" Height="48">
+                        <Path Fill="#4CC2FF" Data="M20,19V20H4V19L20,19M20,17V18H4V17L20,17M4,5V7L10,10L4,13V15L14,10L4,5Z"/>
+                    </Viewbox>
+                    <TextBlock Classes="AppText" Text="Terminal"/>
+                </StackPanel>
+            </Button>
+
+            <!-- 3. Calculator -->
+            <Button Classes="AppItem" Click="Calc_Click">
+                <StackPanel>
+                    <Viewbox Width="48" Height="48">
+                        <Path Fill="#FF9F1C" Data="M7,2H17A2,2 0 0,1 19,4V20A2,2 0 0,1 17,22H7A2,2 0 0,1 5,20V4A2,2 0 0,1 7,2M7,4V8H17V4H7M7,10V12H9V10H7M11,10V12H13V10H11M15,10V12H17V10H15M7,14V16H9V14H7M11,14V16H13V14H11M15,14V16H17V14H15M7,18V20H9V18H7M11,18V20H13V18H11M15,18V20H17V18H15Z"/>
+                    </Viewbox>
+                    <TextBlock Classes="AppText" Text="Calculator"/>
+                </StackPanel>
+            </Button>
+
+            <!-- 4. Opera GX -->
+            <Button Classes="AppItem" Click="Opera_Click">
+                <StackPanel>
+                    <Viewbox Width="48" Height="48">
+                        <Path Fill="#FA1E4E" Data="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,4.5C14.5,4.5 16.71,5.65 18,7.37C17.15,14.61 17.15,18.96 18,26.63C16.56,26.63 14.5,26.63 12,29.5"/>
+                    </Viewbox>
+                    <TextBlock Classes="AppText" Text="Opera GX"/>
+                </StackPanel>
+            </Button>
+
+        </WrapPanel>
+        
+        <!-- Кнопка закрытия (крестик) в углу -->
+        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10"
+                Background="Transparent" BorderThickness="0" Click="Close_Click">
+             <Path Fill="#88FFFFFF" Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" Width="16" Height="16"/>
+        </Button>
+    </Panel>
 </Window>
